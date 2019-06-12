@@ -2,6 +2,8 @@ package om;
 
 import java.io.*;
 import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Random;
 
 public class World extends HashSet<Life>{
 	public enum Type{
@@ -43,11 +45,16 @@ public class World extends HashSet<Life>{
 	
 	//load from file constructor
 	public World(String path){
+		load(path);
+	}
+	
+	public void load(String path) {
 		if(path == "default_path") path = filename;
 		FileInputStream fis;
 		try {
 			fis = new FileInputStream(path);
 			ObjectInputStream ois = new ObjectInputStream(fis);
+			this.removeAll();
 			this.addAll((World)ois.readObject());
 			
 		} catch (Exception e) {
@@ -56,6 +63,11 @@ public class World extends HashSet<Life>{
 		}
 	}
 	
+	private void removeAll() {
+		for(Life l: this) {
+			this.remove(l);
+		}
+	}
 	
 	// add method is here as the member of superclass
 	
@@ -137,6 +149,16 @@ public class World extends HashSet<Life>{
 		}
 		add(newBeing);
 		return true;
+	}
+	
+	public Plant getRandomPlant() {
+		Random ran = new Random();
+		return (getPlants().toArray(new Plant[0])[ran.nextInt(getPlants().size())]);
+	}
+	
+	public Herbivore getRandomHerbivore() {
+		Random ran = new Random();
+		return (getHerbivores().toArray(new Herbivore[0])[ran.nextInt(getHerbivores().size())]);
 	}
 	
 	// UPDATE METHODS DONE

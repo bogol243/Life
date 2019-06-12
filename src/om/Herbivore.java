@@ -8,7 +8,7 @@ public class Herbivore extends Animal implements Food {
 
 	public void eat(Food food) throws Exception{
 		// питаться могут только живые особи
-		if (!this.getAlive())
+		if (!this.isAlive())
 			throw new IllegalStateException("Only living animals can eat");
 		//Травоядные едят только траву
 		if(! (food instanceof Plant))

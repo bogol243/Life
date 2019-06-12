@@ -7,7 +7,7 @@ public class Predator extends Animal {
 	}
 	public void eat(Food food) throws Exception{
 		//есть могут только живые особи
-		if (!this.getAlive()) 
+		if (!this.isAlive()) 
 			throw new IllegalStateException("Only living animals can eat");
 			// хищник ест только травоядных
 		if ( !(food instanceof Herbivore))

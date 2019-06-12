@@ -44,7 +44,7 @@ public abstract class Animal extends Life{
 		this.weight = weight;
 	}
 
-	public boolean getAlive() {
+	public boolean isAlive() {
 		return isAlive;
 	}
 
