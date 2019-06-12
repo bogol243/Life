@@ -23,6 +23,7 @@ public class ClientHandler implements Runnable{
 		//read message
 		protocol = readMessage();
 		Life life = protocol.getData();
+		// handle the commands
 		try {
 			switch (protocol.getCommand()) {
 				case Protocol.ADD_LIFE:
