@@ -1,10 +1,11 @@
-package test;
+package main;
+import net.*;
 import om.*;
 import ui.*;
 
 public class Start {
 	public static void main(String agrs[]){
-		loadSaveTest();
+		MainControl.startServer(1488);
 	}
 	
 	

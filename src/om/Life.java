@@ -7,6 +7,12 @@ public class Life implements Serializable{
 	protected double weight;
 	protected String name;
 	
+	public Life() {
+		this.id = 0;			//id
+		this.name = "default";		//name
+		this.weight = 100;	//mass
+	}
+	
 	//id default constructor
 	public Life(int id){
 		this.id = id;			//id

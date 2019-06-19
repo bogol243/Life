@@ -11,6 +11,15 @@ public class World extends HashSet<Life>{
 		PREDATOR,
 		PLANT
 	}
+	private static World storage = new World();
+
+    public static World getInstance() {
+        if (storage == null)
+            storage = new World();
+
+        return storage;
+    }
+	public static final String DEFAULT_PATH = "default_path";
 	private String filename = "Life.txt";  //default filename
 	private int idCount = 0;
 	
@@ -25,7 +34,7 @@ public class World extends HashSet<Life>{
 			
 			ObjectOutputStream oos = new ObjectOutputStream(fos);
 			
-			oos.writeObject(this);
+			oos.writeObject(storage);
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -49,13 +58,13 @@ public class World extends HashSet<Life>{
 	}
 	
 	public void load(String path) {
-		if(path == "default_path") path = filename;
+		if(path == DEFAULT_PATH) path = filename;
 		FileInputStream fis;
 		try {
 			fis = new FileInputStream(path);
 			ObjectInputStream ois = new ObjectInputStream(fis);
-			this.removeAll();
-			this.addAll((World)ois.readObject());
+			storage.removeAll();
+			storage.addAll((World)ois.readObject());
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -64,8 +73,8 @@ public class World extends HashSet<Life>{
 	}
 	
 	private void removeAll() {
-		for(Life l: this) {
-			this.remove(l);
+		for(Life l: storage) {
+			storage.remove(l);
 		}
 	}
 	
@@ -74,7 +83,7 @@ public class World extends HashSet<Life>{
 	//get by id
 	public Life get(int id){
 		Life result = null;
-		for(Life l:this){
+		for(Life l:storage){
 			if(l.getId()==id){
 				result = l;
 				break;
@@ -84,9 +93,9 @@ public class World extends HashSet<Life>{
 	}
 	
 	public boolean remove(int id){
-		for(Life l:this){
+		for(Life l:storage){
 			if(l.getId()==id){
-				this.remove(l);
+				storage.remove(l);
 					return true;
 			}
 		}
@@ -95,7 +104,7 @@ public class World extends HashSet<Life>{
 	
 	public HashSet<Herbivore> getHerbivores(){
 		HashSet<Herbivore> result = new HashSet<Herbivore>();
-		for(Life l:this){
+		for(Life l:storage){
 			if(l instanceof Herbivore){
 				result.add((Herbivore)l);
 			}
@@ -105,7 +114,7 @@ public class World extends HashSet<Life>{
 	
 	public HashSet<Predator> getPredators(){
 		HashSet<Predator> result = new HashSet<Predator>();
-		for(Life l:this){
+		for(Life l:storage){
 			if(l instanceof Predator){
 				result.add((Predator)l);
 			}
@@ -115,7 +124,7 @@ public class World extends HashSet<Life>{
 	
 	public HashSet<Plant> getPlants(){
 		HashSet<Plant> result = new HashSet<Plant>();
-		for(Life l:this){
+		for(Life l:storage){
 			if(l instanceof Plant){
 				result.add((Plant)l);
 			}
@@ -163,17 +172,17 @@ public class World extends HashSet<Life>{
 	
 	// UPDATE METHODS DONE
 	void update(Life life) throws Exception{
-		if(!this.contains(life)){
-			throw new Exception("There's no such object in this World");
+		if(!storage.contains(life)){
+			throw new Exception("There's no such object in storage World");
 		}
-		this.add(life);
+		storage.add(life);
 		return;
 	}
 	
 	@Override
 	public String toString(){
 		String res = "";
-		for(Life l:this){
+		for(Life l:storage){
 			res = res + l.getInfo();
 			res = res + "\n";
 		}

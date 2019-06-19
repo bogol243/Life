@@ -4,7 +4,7 @@ public class Plant extends Life implements Food {
 	
 	private String name;
 
-	public Plant(int id, String name, float weight) {
+	public Plant(int id, String name, double weight) {
 		super(id,name,weight);
 	}
 
