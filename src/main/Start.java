@@ -5,7 +5,7 @@ import ui.*;
 
 public class Start {
 	public static void main(String agrs[]){
-		MainControl.startServer(1488);
+		MainControl.startServer(1500);
 	}
 	
 	

@@ -73,9 +73,8 @@ public class World extends HashSet<Life>{
 	}
 	
 	private void removeAll() {
-		for(Life l: storage) {
-			storage.remove(l);
-		}
+		HashSet<Life> c = (HashSet<Life>)storage.clone();
+		storage.removeAll(c);
 	}
 	
 	// add method is here as the member of superclass
